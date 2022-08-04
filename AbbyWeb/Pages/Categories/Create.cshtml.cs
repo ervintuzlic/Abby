@@ -28,7 +28,7 @@ namespace AbbyWeb.Pages.Categories
         {
             if(Category.Name == Category.DisplayOrder.ToString())
             {
-                ModelState.AddModelError(string.Empty, "The DisplayOrder cannot be the same as name");
+                ModelState.AddModelError("Category.Name", "The DisplayOrder cannot be the same as name");
             }
             if (ModelState.IsValid)
             {
