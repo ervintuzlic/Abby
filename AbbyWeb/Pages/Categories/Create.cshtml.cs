@@ -10,6 +10,9 @@ namespace AbbyWeb.Pages.Categories
 
         private readonly ApplicationDBContext _db;
 
+        //** BIND PROPERTY IT AUTOMATICALLY BINDS WITH UI AND IT'S POPULATED IN THE SAME OBJECT (CATEGORY)
+
+        [BindProperty]
         public Category Category { get; set; }
 
         public CreateModel(ApplicationDBContext db)
@@ -20,12 +23,16 @@ namespace AbbyWeb.Pages.Categories
         {
         }
 
-        //** Moze se koristit i ime pored OnPost ex. OnPostCreate()
-        public async Task<IActionResult> OnPost(Category category)
+        //** Name can be used with OnPost ex. OnPostCreate()
+        public async Task<IActionResult> OnPost()
         {
-            await _db.Category.AddAsync(category);
-            await _db.SaveChangesAsync();
-            return RedirectToPage("Index");
+            if (ModelState.IsValid)
+            {
+                await _db.Category.AddAsync(Category);
+                await _db.SaveChangesAsync();
+                return RedirectToPage("Index");
+            }
+            return Page();
         }
     }
 }
