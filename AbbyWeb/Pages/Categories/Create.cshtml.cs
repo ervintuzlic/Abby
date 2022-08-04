@@ -26,6 +26,10 @@ namespace AbbyWeb.Pages.Categories
         //** Name can be used with OnPost ex. OnPostCreate()
         public async Task<IActionResult> OnPost()
         {
+            if(Category.Name == Category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError(string.Empty, "The DisplayOrder cannot be the same as name");
+            }
             if (ModelState.IsValid)
             {
                 await _db.Category.AddAsync(Category);
